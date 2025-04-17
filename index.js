@@ -7,14 +7,14 @@ const menu = ['Criar categoria', 'Criar produto', 'Listar produtos por categoria
 function limpar() {
     console.clear();
 };
-limpar()
+limpar();
 
 let categorias = [];
 let produtos = [];
 
 const user = readline.question('Seu nome: ');
-limpar()
-console.log('Ola ' + user + '!');
+limpar();
+console.log('Ola ' + user + '!'); //@saymu_c
 
 function Menus() {
     inquirer
@@ -86,7 +86,7 @@ async function createProduct() {
         return;
     }
     if (nome_produto === '') {
-        limpar();
+        limpar(); //@saymu_c
         console.log('Nome do produto não pode ser vazio!\n');
         Menus();
         return;
