@@ -57,9 +57,9 @@ function createCategory() {
     console.log('===Criar categoria===');
     const nome_categoria = readline.question('Nome da categoria: ');
     categorias.push(nome_categoria);
+    
     if (!fs.existsSync('categorias.json')) {
         fs.writeFileSync('categorias.json', JSON.stringify(categorias, null, 2));
-        const categoriasExistentes = JSON.parse(fs.readFileSync('categorias.json', 'utf8'));
         limpar();
         console.log('Categoria criada com sucesso!\n');
     }
@@ -69,8 +69,7 @@ function createCategory() {
         fs.writeFileSync('categorias.json', JSON.stringify(categoriasExistentes, null, 2));
         limpar();
         console.log('Categoria criada com sucesso!\n');
-    }
-    
+    } 
     Menus();
 }
 
@@ -117,7 +116,7 @@ async function createProduct() {
 
     const produto = {
         nome: nome_produto,
-        preco: preco_produto,
+        preco: parseFloat(preco_produto),
         categoria: resposta.categoriaEscolhida,
     };
 
