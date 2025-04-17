@@ -60,15 +60,17 @@ function createCategory() {
     if (!fs.existsSync('categorias.json')) {
         fs.writeFileSync('categorias.json', JSON.stringify(categorias, null, 2));
         const categoriasExistentes = JSON.parse(fs.readFileSync('categorias.json', 'utf8'));
-        console.log('Categoria criada com sucesso!');
+        limpar();
+        console.log('Categoria criada com sucesso!\n');
     }
     else {
         const categoriasExistentes = JSON.parse(fs.readFileSync('categorias.json', 'utf8'));
         categoriasExistentes.push(nome_categoria);
         fs.writeFileSync('categorias.json', JSON.stringify(categoriasExistentes, null, 2));
-        console.log('Categoria criada com sucesso!');
+        limpar();
+        console.log('Categoria criada com sucesso!\n');
     }
-    limpar()
+    
     Menus();
 }
 
@@ -79,14 +81,14 @@ async function createProduct() {
     const nome_produto = readline.question('Nome do produto: ');
     const preco_produto = readline.question('Preço do produto: ');
     if (isNaN(preco_produto) || preco_produto <= 0) {
-        console.log('Preço inválido! O preço deve ser um número maior que zero.');
-        limpar()
+        limpar();
+        console.log('Preço inválido! O preço deve ser um número maior que zero.\n');
         Menus();
         return;
     }
     if (nome_produto === '') {
-        console.log('Nome do produto não pode ser vazio!');
-        limpar()
+        limpar();
+        console.log('Nome do produto não pode ser vazio!\n');
         Menus();
         return;
     }
@@ -99,7 +101,8 @@ async function createProduct() {
     }
 
     if (categoriasDisponiveis.length === 0) {
-        console.log('Não há categorias disponíveis. Crie uma antes.');
+        limpar();
+        console.log('Não há categorias disponíveis. Crie uma antes.\n');
         return Menus();
     }
 
@@ -128,12 +131,13 @@ async function createProduct() {
 
     produtosExistentes.push(produto);
     fs.writeFileSync('produtos.json', JSON.stringify(produtosExistentes, null, 2));
-    console.log('Produto criado com sucesso!');
     limpar();
+    console.log('Produto criado com sucesso!\n');
     Menus();
 }
 
 function listProductsByCategory() {
+    limpar();
     console.log('=== Listar produtos por categoria ===');
 
     let categoriasExistentes = [];
@@ -145,16 +149,16 @@ function listProductsByCategory() {
     }
 
     if (categoriasExistentes.length === 0) {
-        console.log('Nenhuma categoria cadastrada!');
-        limpar()
+        limpar();
+        console.log('Nenhuma categoria cadastrada!\n');
         Menus();
         return;
     }
 
     const categoriaIndex = readline.keyInSelect(categoriasExistentes, 'Escolha uma categoria: ');
     if (categoriaIndex === -1) {
-        console.log('Nenhuma categoria escolhida!');
-        limpar()
+        limpar();
+        console.log('Nenhuma categoria escolhida!\n');
         Menus();
         return;
     }
@@ -174,19 +178,20 @@ function listProductsByCategory() {
     );
 
     if (produtosFiltrados.length === 0) {
-        console.log(`Nenhum produto encontrado na categoria "${categoriaEscolhida}".`);
+        limpar();
+        console.log(`Nenhum produto encontrado na categoria "${categoriaEscolhida}".\n`);
     } else {
         limpar();
         console.log(`Produtos da categoria "${categoriaEscolhida}":\n`);
         produtosFiltrados.forEach((produto, index) => {
-            console.log(`${index + 1}. ${produto.nome} - R$ ${produto.preco}`);
+            console.log(`${index + 1}. ${produto.nome} - R$ ${produto.preco}\n`);
         });
     }
     Menus();
 }
 
 function searchProduct() {
-    limpar()
+    limpar();
     console.log('=== Buscar produto ===');
     const nomeProduto = readline.question('Nome do produto: ');
 
@@ -210,14 +215,16 @@ function searchProduct() {
         produto.nome.toLowerCase().includes(nomeProduto.toLowerCase())
     );
     if (nomeProduto === '') {
-        console.log('Nenhum produto encontrado!');
+        limpar();
+        console.log('Nenhum produto encontrado!\n');
     } else if (produtosFiltrados.length === 0) {
-        console.log(`Nenhum produto encontrado com o nome "${nomeProduto}".`);
+        limpar();
+        console.log(`Nenhum produto encontrado com o nome "${nomeProduto}".\n`);
     } else {
         limpar();
         console.log(`Produtos encontrados com o nome "${nomeProduto}":\n`);
         produtosFiltrados.forEach((produto, index) => {
-            console.log(`${index + 1}. ${produto.nome} - R$ ${produto.preco} - Categoria: ${produto.categoria} `);
+            console.log(`${index + 1}. ${produto.nome} - R$ ${produto.preco} - Categoria: ${produto.categoria}\n`);
         });
     }
     Menus();
